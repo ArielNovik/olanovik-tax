@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>נוביק אולגה - יועצת מס</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="description" content="יועצת מס מוסמכת המתמחה בהחזרי מס, הנהלת חשבונות, פתיחת תיקים ודוחות שנתיים">
+    <meta name="keywords" content="יועצת מס, החזר מס, הנהלת חשבונות, פתיחת עסק, דוחות, הצהרת הון">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -63,13 +66,25 @@
         ul {
             line-height: 1.8;
             padding-right: 20px;
+            list-style: none;
+        }
+        ul li::before {
+            content: '\f105';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #0077cc;
+            display: inline-block;
+            margin-left: 10px;
         }
         footer {
             background-color: #002b5c;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             font-size: 0.9em;
+        }
+        footer p {
+            margin: 5px 0;
         }
         form {
             display: flex;
@@ -148,7 +163,11 @@
                         form.reset();
                         successMessage.style.display = "block";
                         backButton.style.display = "inline-block";
+                    } else {
+                        alert("אירעה שגיאה בשליחת ההודעה. נסה שוב.");
                     }
+                }).catch(() => {
+                    alert("אירעה שגיאה בשליחת ההודעה. נסה שוב.");
                 });
             });
         });
@@ -190,7 +209,7 @@
         </div>
 
         <form action="https://formspree.io/f/xanovvng" method="POST">
-            <h2>שלח לי הודעה:</h2>
+            <h2>צור קשר:</h2>
             <input type="text" name="name" placeholder="שם מלא" required>
             <input type="email" name="email" placeholder="אימייל" required>
             <textarea name="message" rows="4" placeholder="הודעה"></textarea>
@@ -201,7 +220,13 @@
     </section>
 
     <footer>
-        &copy; 2025 נוביק אולגה. כל הזכויות שמורות.
+        <p>&copy; 2025 נוביק אולגה. כל הזכויות שמורות.</p>
+        <p><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/xr5fqvyKAmxqP6Mw6" target="_blank" style="color: white; text-decoration: underline;">אזור השרון</a> | <i class="fas fa-envelope"></i> <a href="mailto:olanovik29@gmail.com" style="color: white; text-decoration: underline;">olanovik29@gmail.com</a></p>
+        <p><i class="fas fa-phone"></i> <a href="tel:0545580899" style="color: white; text-decoration: underline;">054-5580899</a> | <i class="fab fa-whatsapp"></i> <a href="https://wa.me/972545580899" target="_blank" style="color: white; text-decoration: underline;">שלח הודעה בוואטסאפ</a></p>
     </footer>
+
+    <a href="https://wa.me/972545580899" target="_blank" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background-color: #25D366; color: white; border-radius: 50%; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); text-align: center; font-size: 24px;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 </html>
