@@ -7,10 +7,15 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4fa;
+            background: linear-gradient(to bottom, #f0f4fa 0%, #e8f0ff 100%) fixed;
             margin: 0;
             padding: 0;
             color: #002b5c;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         header {
             background: linear-gradient(to right, #005baa, #0077cc);
@@ -21,6 +26,11 @@
         header img {
             max-width: 100px;
             margin-bottom: 15px;
+            animation: dropFade 1s ease-out;
+        }
+        @keyframes dropFade {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         h1 {
             margin: 0;
@@ -41,13 +51,14 @@
             padding-bottom: 5px;
         }
         .highlight {
-            background-color: #ffffff;
+            background-color: #ffffffcc;
             border: 1px solid #d3e3fd;
             border-right: 5px solid #0077cc;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 20px;
             margin-bottom: 30px;
             border-radius: 8px;
+            animation: fadeIn 1s ease-in;
         }
         ul {
             line-height: 1.8;
@@ -83,6 +94,32 @@
         button:hover {
             background-color: #005baa;
         }
+        .success-message {
+            text-align: center;
+            background-color: #e6ffe6;
+            color: #006600;
+            border: 1px solid #00aa00;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+        }
+        .back-button {
+            display: none;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #005baa;
+        }
         @media screen and (max-width: 600px) {
             section {
                 padding: 20px 15px;
@@ -92,6 +129,30 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const successMessage = document.querySelector(".success-message");
+            const backButton = document.querySelector(".back-button");
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const data = new FormData(form);
+                fetch(form.action, {
+                    method: "POST",
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        form.reset();
+                        successMessage.style.display = "block";
+                        backButton.style.display = "inline-block";
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -122,19 +183,21 @@
         </div>
 
         <div class="highlight">
-            <h2>צור קשר</h2>
+            <h2>יצירת קשר</h2>
             <p>פקס: 09-8651191</p>
             <p>נייד: 054-5580899</p>
             <p>אימייל: <a href="mailto:olanovik29@gmail.com">olanovik29@gmail.com</a></p>
         </div>
 
-        <form>
+        <form action="https://formspree.io/f/xanovvng" method="POST">
             <h2>שלח לי הודעה:</h2>
-            <input type="text" placeholder="שם מלא" required>
-            <input type="email" placeholder="אימייל" required>
-            <textarea rows="4" placeholder="הודעה"></textarea>
+            <input type="text" name="name" placeholder="שם מלא" required>
+            <input type="email" name="email" placeholder="אימייל" required>
+            <textarea name="message" rows="4" placeholder="הודעה"></textarea>
             <button type="submit">שלח</button>
         </form>
+        <div class="success-message">ההודעה נשלחה בהצלחה!</div>
+        <button class="back-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">חזרה לעמוד הראשי</button>
     </section>
 
     <footer>
